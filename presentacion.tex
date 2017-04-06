@@ -1,0 +1,753 @@
+
+
+\documentclass[serif,9pt]{beamer}
+\setbeamertemplate{navigation symbols}{}
+
+
+\usetheme{Warsaw}
+
+%\documentclass[serif,9pt]{beamer}
+%\usepackage[T1]{fontenc} % Needed for Type1 Concrete
+%\usepackage[charter]{mathdesign}
+
+
+%\usepackage[pdftex]{graphicx}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{proof}
+
+\newcommand{\salto}{\par \bigskip}
+\newcommand{\saltop}{\par \bigskip \pause}
+\newcommand{\nmodels}{\nvDash}
+\beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
+
+\begin{document}
+\title{Una exposición de \emph{Sobre sentencias formalmente indecidibles de P.M. y sistemas afines (1931)}}  
+\author{Antonio Yuste}
+\institute[Máster en Lógica y filosofía de la ciencia]{%
+  
+  LibreIM }
+
+
+
+
+
+\begin{frame}
+\titlepage
+\begin{center}
+
+\includegraphics[scale=1]{licencia.png}
+
+
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Contenido}\tableofcontents
+\end{frame} 
+
+
+\section{Introducción y preliminares} 
+
+\subsection{¿Qué se entiende por lógica?}
+
+\begin{frame}\frametitle{¿Qué se entiende por lógica(s)?} 
+
+\begin{itemize}
+
+\item Una lógica, o sistema lógico, es una tupla $\mathsf{L}= \langle \mathcal{L}, \models, \vdash \rangle$. Donde $\mathcal{L}$ es un lenguaje formal, $\models$ es una relación semántica de consecuencia entre los elementos de $\mathcal{L}$ y $\vdash$ una relación de derivabilidad o deductibilidad entre los elementos de $\mathcal{L}$. \pause
+\bigskip
+
+\item Sean $\Gamma \subseteq \mathcal{L}$ un conjunto de fórmulas y $\varphi \in \mathcal{L}$ una fórmula. '$\Gamma \models \varphi$' se lee "$\varphi$ es una consecuencia lógica de $\Gamma$". \pause \salto
+
+\item $\Gamma \vdash \varphi$ se lee "$\varphi$ es deducible desde $\Gamma$".
+
+
+
+
+\end{itemize}
+\end{frame}
+\subsection{Lenguaje de $LPO$}
+\begin{frame}\frametitle{lenguajes formales}
+
+Los lenguajes formales son conjuntos, normalmente infinitos, de ciertas cadenas de símbolos, que denominamos \emph{fórmulas}. A modo de ejemplo, nos centraremos en el lenguaje de la \emph{lógica clásica de primer orden con identidad*}. Los lenguajes formales se pueden introducir de diversas formas.  \medskip
+
+
+\end{frame}
+\begin{frame}
+\begin{itemize}
+
+
+
+
+
+\item La familia de lenguajes de primer orden con identidad, que denotaremos $\mathcal{L}_{LPO}$, se construye sobre el alfabeto $\mathfrak{a}= \mathcal{V}ar \cup \mathcal{C}ons \cup \mathcal{F}un \cup \mathcal{P}red \cup \{ \lnot, \land, \lor, \to, \leftrightarrow, \forall, \exists,=,(,) \} $. Donde: \begin{itemize}
+\pause \salto
+
+\item $\mathcal{V}ar= \{x_1,x_2,... \}$ es un conjunto infinito numerable de variables individuales. \pause \salto
+\item $\mathcal{F}un=\{f_1^1,f_2^1,...,f_1^2,...\}$ es un conjunto numerable posiblemente vacío de símbolos de función (functores). 
+\pause \salto
+\item $\mathcal{P}red=\{P_1^1,P_2^1,...,P_1^2,...\}$ es un conjunto numerable \emph{no} vacío de símbolos relacionales (relatores).
+\pause \salto
+\item $\mathcal{C}ons=\{a_1,a_2,....,b_1,b_2,...\}$ es un conjunto numerable posiblemente vacío de símbolos de constante.
+\pause \salto
+ \item Es importante notar que para cada $f \in \mathcal{F}un$, $P \in \mathcal{P}red$, se conoce la aridad de $f$ y $P$ respectivamente (la hemos expresado con superíndices). Algunos interpretan $\mathcal{C}ons \subseteq \mathcal{F}un$, siendo $\mathcal{C}$ los símbolos de función de aridad 0.
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Signatura}
+
+Nótese que cada alfabeto de primer orden contiene al conjunto $\mathcal{V}ar \cup \{ \lnot, \land, \lor, \to, \leftrightarrow, \forall, \exists,=,(,) \}$. \saltop
+Así, cada alfabeto de primer orden, y cada lenguaje por extensión, queda totalmente determinado por su \emph{signatura} $\Sigma= \mathcal{C}ons \cup \mathcal{F}un \cup \mathcal{P}red $
+\end{frame}
+\begin{frame}\frametitle{Término}
+
+\textbf{DEF. Término}: \pause \salto
+
+El menor  conjunto \emph{Term} de palabras (concatenaciones) generadas a partir de $\mathfrak{a}$ con  las siguientes reglas. \saltop
+\begin{itemize}
+\item Los elementos de $\mathcal{V}ar$ (variables) y de $\mathcal{C}ons$ (constantes), son términos. \pause \salto
+\item Si $t_1,..., t_n$ son términos, entonces $f^{n}_{x}(t_1, ...,t_n)$ es un término, para cada  $f^{n}_{x} \in \mathcal{F}$. \pause \salto
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}\frametitle{Términos, ejemplos}
+Por convención usamos las primeras letras minúsculas del alfabeto $a,b,c$ (con subíndices) para representar los elementos de $\mathcal{C}ons$, las de mitad del alfabeto $f,g,h$ (con subíndices) para $\mathcal{F}un$ y las letras $x,y,z$ (con subíndices) para $\mathcal{V}ar$. \salto
+
+\begin{itemize}
+\item Las siguientes concatenaciones son términos conforme a las reglas que acabamos de fijar: $a$\qquad$x_3$ \qquad $f(x_1,b_2)$\qquad$g(h(x_1),b_2,a_3)$ \saltop
+\item Las siguientes concatenaciones no son términos: $(f$\qquad $x_1g$\qquad$P(a)$\qquad$f$
+\end{itemize}
+
+\end{frame}
+\begin{frame}\frametitle{Fórmula atómica}
+
+
+\pause \salto
+\textbf{DEF. Fórmula atómica}. El menor  conjunto \emph{Atom} de palabras (concatenaciones) generadas a partir de $\mathfrak{a}$ a partir de las siguientes reglas. \pause \salto
+
+\begin{itemize}
+
+\item Si $t_1$ y $t_2$ son términos, entonces $t_1=t_2$ es una fórmula atómica. \pause \salto
+\item Si $t_1,...,t_n$ son términos, entonces $P(t_1,...,t_n)$ es una fórmula atómica. \pause \salto
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}\frametitle{Fórmulas atómicas, ejemplos}
+Convención: $P,Q,R$ (con subíndices) para los elementos de $\mathcal{P}red$. \salto \pause
+
+\begin{itemize}
+\item Las siguientes concatenaciones son fórmulas atómicas: $P(a)$, $P(f(a))$,$R_2(a,x,g(y))$,$f(a,b,c)=g(x_2) $. \saltop
+\item Las siguientes concatenaciones no fórmulas atómicas: $(f$\qquad $x_1g$\qquad $P\to Q$ \qquad$f$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Fórmula bien formada}
+
+\textbf{DEF. Fórmula bien formada.}  Usamos, convencionalmente, letras griegas $\varphi, \psi, \gamma, \phi,...$ para referirnos a fórmulas cualesquiera. Así, las fórmulas bien formadas de $\mathcal{L}_{LPO}$ son el menor  conjunto $Form(\mathcal{L}_{LPO})$ o simplemente $\mathcal{L}_{LPO}$  de palabras (concatenaciones) generadas a partir de $\mathfrak{a}$ a partir de las siguientes reglas.
+
+\begin{itemize}
+\item Todo elementos de \emph{Atom} es un elemento de $\mathcal{L}_{LPO}$, i.e., toda fórmula atómica es una fórmula. \pause \salto
+\item Si $\varphi$ es una fórmula, entonces $\lnot (\varphi)$ también lo es. \pause \salto
+\item Si $\varphi$ y $\psi$ son fórmulas, entonces $(\varphi) * (\psi)$ es una fórmula (con $* \in \{ \land, \lor, \to, \leftrightarrow \}$). \pause \salto
+\item Si $\varphi$ es un fórmula y $x$ es una variable, entonces $\forall x (\varphi)$ y $\exists x (\varphi)$ también lo son. \pause \salto
+
+\end{itemize}
+
+\saltop
+
+Omitiremos paréntesis cuando no de lugar a confusión.
+\end{frame}
+
+\begin{frame}
+\frametitle{Fbf. Ejemplos}. De acuerdo con las reglas que acabamos de fijar
+\begin{itemize}
+\item Las siguientes concatenaciones son fórmulas bien formadas: $P(a)\to \lnot P(x)$, \qquad $\exists y(P(g(y,x)) \land P(f(x,y)))$, \qquad $\lnot \forall x(P(x) \to Q(x)) $. \saltop
+\item Las siguientes concatenaciones \textbf{no} son fórmulas bien formadas: $(f$\qquad $x_1g$\qquad $P\to Q$ \qquad$f$
+\end{itemize}
+\end{frame}
+
+
+\subsection{Semántica para $LPO$}
+
+\begin{frame}\frametitle{Interpretación}
+
+Objetivo de la semántica: proporcionar una noción formal del significado de las expresiones de un lenguaje. \saltop
+
+\textbf{DEF.} Una \textbf{interpretación} (a veces llamada modelo) para $\mathcal{L}_{LPO}$ es un par $\mathcal{I}=\langle U, I \rangle$ tal que:
+\saltop
+ \begin{enumerate}
+\saltop
+\item $U$ es un conjunto no vacío cualquiera (universo o dominio de discurso) \saltop
+
+\item $I$ es una aplicación tal que: \begin{enumerate} \saltop
+\item Para cada $c \in \mathcal{C}ons$, $I(c) \in U$. ($I$ asigna a cada constante un individuo u objeto del universo)
+\salto
+\item Para cada $f^{n} \in \mathcal{F}un$, $I(f^{n}): U^{n} \longrightarrow U $. ($I$ asigna a cada functor n-ario una función n-aria definida dentro del universo).\salto
+\item Para cada $P^{n} \in \mathcal{P}red$, $I(P^{n}) \subseteq U^{n}$. ($I$ asigna a cada relator $n-ario$ un relación $n$-aria sobre el universo). \salto
+\end{enumerate}
+\end{enumerate}
+\end{frame}
+\begin{frame}\frametitle{Asignación}
+
+\textbf{DEF.} Una \textbf{asignación} $\Phi$ es una función $\Phi: \mathcal{V}ar \longrightarrow U$ que va del conjunto de variables de $\mathcal{L}_{LPO}$ al universo o dominio de interpretación. \saltop 
+
+La idea es que, dada una interpretación $\mathcal{I}$, podemos asociarle distintas asignaciones. Esto será útil para definir el valor de verdad de las fórmulas abiertas y las formulas cuantificadas, como se verá luego. Consideramos también la definición: \saltop
+\textbf{DEF.} Sean $\Phi$ una asignación cualquiera, denotamos por $\Phi^{x}_{u}$ la función igual a $\Phi$ salvo por $\Phi(x)$ donde tenemos $\Phi^{x}_{u}(x)=u$ (con $u\in U$). 
+
+\end{frame}
+
+\begin{frame}\frametitle{Función de significado}
+
+
+\textbf{DEF.} Dado un universo $U$, una interpetación $I$ y una asignación $\Phi$, llamamos \textbf{función de significado} -en ocasiones la denominamos también \emph{interpretación}, abusando de notación- o \emph{función de valor} a la aplicación $I_{\Phi}: Term(\mathcal{L}_{LPO}) \longrightarrow U$ (asigna a cada término un objeto) tal que: \salto \pause
+
+\begin{itemize}
+
+
+
+\item Si $a \in \mathcal{C}ons$, entonces $I_{\Phi}(a)=I(a)$. \salto \pause
+\item Si $x \in \mathcal{V}ar$, entonces $I_{\Phi}(x)=\Phi(x)$. \salto \pause
+\item Si $t$ es un término de la forma $f(t_1,t_2,...,t_n)$, entonces $I_{\Phi}(f(t_1,t_2,...,t_n))=I(f)(I_{\Phi}(t_1),...,I_{\Phi}(t_n))$. \salto \pause
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Función de verdad. I}
+
+Extendemos por último el dominio de $I_{\Phi}$ (hasta ahora solo tomaba entradas en  $Term(\mathcal{L}_{LPO})$) para poder interpretar las fórmulas de $\mathcal{L}_{LPO}$. \salto \pause
+
+\textbf{DEF. Valor de verdad de una fbf}. Dada una $\mathcal{I}=\langle U,I \rangle$ y una asignación asociada $\Phi$, definimos el \textbf{valor de verdad} de las fórmulas  de $\mathcal{L}_{LPO}$ ($I_{\Phi}: Form(\mathcal{L}_{LPO}) \longrightarrow \{1,0\}$) recursivamente, como sigue:
+
+\salto \pause
+\begin{itemize}
+
+\item Fórmulas atómicas.  \salto \pause
+\begin{enumerate}
+\item $I_{\Phi}(t_1=t_2)=1$ \quad sii \quad $I_{\Phi}(t_1)=I_{\Phi}(t_2)$. \salto \pause
+\item $I_{\Phi}(P(t_1,...,t_n))=1$ \quad  sii  \quad  $\langle I_{\Phi}(t_1),...,I_{\Phi}(t_n) \rangle \in I(P)$ \pause
+
+\end{enumerate}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Función de verdad. II}
+\begin{itemize}
+
+
+\item Conectivas \salto \pause
+
+\begin{enumerate}
+
+\item $I_{\Phi}(\lnot \varphi)=1$ sii $I_{\Phi}(\varphi)=0$ \salto \pause
+\item $I_{\Phi}(\varphi \lor \psi)=1$ \quad sii $I_{\Phi}(\varphi)=1$ ò $I_{\Phi}(\psi)=1$  \salto \pause
+\item $I_{\Phi}(\varphi \land \psi)=1$ \quad sii \quad $I_{\Phi}(\varphi)=1$ y $I_{\Phi}(\psi)=1$ \salto \pause
+\item $I_{\Phi}(\varphi \to \psi)=0$  \quad sii \quad $I_{\Phi}(\varphi)=1$ y $I_{\Phi}(\varphi)=0$ \saltop
+
+
+
+
+
+\end{enumerate}
+
+\item Fórmulas cuantificadas
+
+\begin{enumerate}
+\item $I_{\Phi}(\forall x \varphi(x))$ \quad sii \quad $I_{\Phi^{x}_{u}}(\varphi(x))=1$ para cada $u \in U$. \saltop
+
+\item $I_{\Phi}(\exists x \varphi(x))$ \quad sii \quad $I_{\Phi^{x}_{u}}(\varphi(x))=1$ para al menos un $u \in U$.
+
+\end{enumerate}
+\end{itemize}
+
+
+
+\end{frame}
+
+\begin{frame}\frametitle{Satisfascibilidad, validez, y consecuencia lógica}
+\textbf{DEF.} Una fórmula $\varphi \in \mathcal{L}_{LPO}$ se dice \textbf{satisfacible} sii existe una $\mathcal{I}=\langle U, I \rangle$ y una asignación $\Phi$ asociada a $I$ tal que $I_{\Phi}(\varphi)=1$. Cuando esto ocurre, lo expresamos mediante $\models_{\mathcal{I}_{\Phi}} \varphi$ y decimos que $\mathcal{I}_{\Phi}=\langle U, I_{\Phi} \rangle$ es un modelo de $\varphi$, que $\mathcal{I}_{\Phi}=\langle U, I_{\Phi} \rangle$ satisface a $\varphi$ o que $\varphi$ es verdadera en $\mathcal{I}_{\Phi}=\langle U, I_{\Phi} \rangle$. \saltop
+
+Si $\varphi$ no tiene ninguna interpretación verdadera, se dice que es insatisfacible. \saltop
+
+\textbf{DEF.} Una fórmula $\varphi$ se dice \textbf{fórmula válida} o \textbf{tautología} sii para cada interpretación $\mathcal{I}=\langle U,I \rangle$ y cada $\Phi$ asociada tenemos que  $I_{\Phi}(\varphi)=1$. Se denota con $\models \varphi$. \saltop
+
+\textbf{DEF.} Sea $\Gamma$ un conjunto de fbfs cualesquiera y $\varphi$ una fórmula cualquiera. Decimos que $\varphi$ es una \textbf{consecuencia lógica}/semántica de $\Gamma$ o está implicada lógicamente por $\Gamma$ - formalmente  $\Gamma \models \varphi$- sii para cada $\mathcal{I}_{\Phi}$: si $I_{\Phi}(\psi)=1$ para cada $\psi \in \Gamma$, entonces $I_{\Phi}(\varphi)=1$.  \saltop
+
+\end{frame}
+
+\subsection{Cálculo}
+
+\begin{frame}\frametitle{La noción de cáculo}
+
+Un sistema de cálculo $S$ o $\vdash_{S}$ es, en general, un instrumento que nos permite llevar a cabo deducciones dentro de una lógica $\mathsf{L}$. Una deducción es, informalmente, una serie finita de pasos que nos lleva de un conjunto de fórmulas $\Gamma$ (premisas) a una fórmula $\varphi$ (conclusión). \saltop
+
+En este contexto, nos interesarán los \textbf{cálculos axiomáticos}.
+
+\end{frame}
+
+\begin{frame}\frametitle{La noción de cálculo axiomático}
+
+Un sistema de cálculo axiomático $S$ para una lógica $\mathsf{L}=\langle \mathcal{L}, \models, \vdash_{S} \rangle$ es un par  $S = \langle Ax, Rgl\rangle$. Donde $Ax \subseteq Form(\mathcal{L})$ es un conjunto de axiomas y $Rgl$ es un conjunto de expresiones (que denominamos reglas de inferencia) del tipo  \quad \infer{\varphi}{\Gamma} \quad donde $\Gamma \subseteq \mathcal{L}$ y $\varphi \in \mathcal{L}$. \saltop 
+
+Nótese que $Rgl$ atiende solo a los signos que componen $\varphi$. Por ejemplo, la regla del \emph{Modus ponens}, $MP$: \quad \infer{\psi}{\varphi \to \psi, & \varphi} \quad, se puede transcribir como "si tienes una fórmula de tipo $\varphi \to \psi$ en un paso anterior de una deducción, y tienes otra $\varphi$ en otro paso, entonces puede crear un nuevo paso en el que afirmes $\psi$".  \saltop
+
+¡DEJAMOS DE LADO CUALQUIER NOCIÓN SEMÁNTICA!
+
+\end{frame}
+
+\begin{frame}\frametitle{Deducción y deducibilidad}
+
+\textbf{DEF} Una deducción de una fórmula $\varphi$ a partir de un conjunto de fórmulas $\Gamma$  es una cadena finita $\varphi_1,...,\varphi_n$ de fórmulas donde $\varphi=\varphi_n$ y para cada $\varphi_i$ con $1 \leq i \leq n$, tenemos que $\varphi_i$ cumple \textbf{una} de las siguientes condiciones: \saltop
+\begin{itemize}
+\item $\varphi_i \in Ax$ \saltop
+\item $\varphi_i \in \Gamma$ \saltop
+\item $\varphi_i$ se obtiene a partir de un número finito de $\varphi_k$ anteriores por la aplicación de alguna de las reglas de inferencia. \saltop
+\end{itemize}
+
+\textbf{DEF.} Si existe una deducción que partiendo de $\Gamma$ nos permite obtener $\varphi$, decimos que $\varphi$ es \textbf{deducible} desde $\Gamma$, formalmente $\Gamma \vdash \varphi$. \saltop
+Cuando $\Gamma= \emptyset$ simplemente notamos $\vdash \varphi$; y decimos que $\varphi$ es un teorema de la lógica $\mathsf{L}$.
+
+\end{frame}
+
+\begin{frame}\frametitle{¿Qué meta-propiedades resultan deseables para una lógica $\mathsf{L}$?}
+
+Cuando definimos una lógica cualquiera $\mathsf{L}= \langle \mathcal{L}, \models_\mathcal{I}, \vdash_S\rangle$ con cualquier aplicación en mente, solemos esperar (o desear):  \saltop \begin{enumerate}
+\item Que $\mathsf{L}$ sea \textbf{correcta}, es decir, que para cada $\Gamma \subseteq \mathcal{L}$, $\varphi \in \mathcal{L}$ se cumpla $\Gamma \vdash \varphi \Rightarrow \Gamma \models \varphi $. En palabras, que todas las fórmulas que deduzcamos de un conjunto dado sean consecuencias lógicas de éste.
+\saltop
+\item Que $\mathsf{L}$ sea \textbf{completa}, es decir, que para cada $\Gamma \subseteq \mathcal{L}$, $\varphi \in \mathcal{L}$ se cumpla $\Gamma \models \varphi \Rightarrow \Gamma \vdash \varphi $. En palabras, que cada consecuencia lógica de un conjunto dado sea deducible desde ese conjunto en nuestro cálculo.
+\end{enumerate}
+
+\end{frame}
+\subsection{Teorías formales} 
+\begin{frame}\frametitle{Teorías formales}
+\begin{itemize}
+\item Una teoría formal $T$ es un conjunto de fórmulas de un lenguaje $\mathcal{L}$ cerrado bajo la noción de derivabilidad. Esto es $T \subseteq \mathcal{L}$ es una teoría sii $T \subseteq \mathcal{L}$ y para toda $\varphi \in \mathcal{L}$, si $T \vdash \varphi$ entonces $\varphi \in T$ (definición sintáctico/calculística). \pause \salto
+
+\item Como sabemos que para todo conjunto de fórmulas $\Gamma$ y toda fórmula $\varphi$ de $\mathcal{L}^{LPO}$, se tiene  se tiene que $\Gamma  \models \varphi \Leftrightarrow \Gamma \vdash \varphi$ (teorema de equivalencia fuerte), podemos ofrecer una definición semántica de teoría de primer orden que sea coextensiva con la anterior. Pero esto no ocurre necesariamente en órdenes superiores. \pause \salto
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Teoría completa y teoría consistente}
+\textbf{DEF. Teoría completa.} Una teoría de un lenguaje formal cualquiera $T\subseteq \mathcal{L}$ es completa sii para toda fórmula $\varphi \in \mathcal{L}$ se tiene $T \vdash \varphi$ o bien $T \vdash \lnot \varphi$.  \pause \salto
+
+\textbf{DEF. Teoría consistente.} Una teoría  $T\subseteq \mathcal{L}$ se dice consistente sii no existe ninguna fórmula $\varphi$ tal que $T \vdash \varphi \land \lnot \varphi$.
+
+\pause \salto
+
+\textbf{¡OJO!} Diferencia entre una lógica completa ($\Gamma \models \varphi \Rightarrow \Gamma \vdash \varphi$) y una teoría completa($ T \vdash \varphi \lor T  \vdash \lnot \varphi$).
+\end{frame}
+
+\section{Los teoremas de incompletitud de Gödel}
+
+\subsection{Introducción}
+
+\begin{frame}
+\begin{center}
+
+\LARGE{K. Gödel. Sobre sentencias formalmente indecidibles de P.M. y sistemas afines (1931)}
+
+
+
+
+
+
+\end{center}
+
+\end{frame}
+\begin{frame}\frametitle{Gödel (1931). Resultados}
+
+\begin{itemize}
+\item ¿Qué prueba Gödel en su artículo de 1931? Hay algunas $T$s muy usadas en matemáticas tales que si $T\subseteq \mathcal{L}$ es consistente, entonces $T$ es incompleta, es decir, se pueden construir fórmulas $\varphi \in \mathcal{L}$ tales que ni $T \vdash \varphi$ ni $T \vdash \lnot \varphi$. \pause \salto
+
+\item ¿Cómo de importantes? Entre ellas está la aritmética de Peano $PA$ o la teoría de conjuntos Zermelo Fraenkel $ZF$ y este resultado es generalizable para cualquier teoría que sea capaz de recoger la aritmética de naturales bajo ciertas condiciones. \pause \salto
+
+\item Además tiene otras consecuencias inesperadas. 
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Notas históricas}
+
+\begin{itemize}
+\item Naufragio del proyecto formalista. "Wir müssen wissen. Wir werden wissen."
+
+
+
+\saltop
+\item Según Mosterín, el formalismo perseguía al menos dos objetivos: \saltop
+\begin{enumerate}
+\item Construir sistemas formales completos para las principales ramas de la matemática clásica. \saltop
+\item Elaborar demostraciones de la consistencia de esos sistemas. \saltop
+\end{enumerate}
+
+\item Primeras extensiones de los teoremas de Gödel: Rosser, Tarksi.
+\end{itemize}
+
+
+
+
+\end{frame}
+
+\subsection{El sistema formal P}
+
+\begin{frame}\frametitle{Resumen de $P$}
+
+\begin{center}
+$P=PA+PM$
+\end{center} \salto
+La unión entre los axiomas de \emph{Principia Mathematica} y la \emph{Aritmética de Peano}
+\end{frame}
+\begin{frame}\frametitle{Alfabeto de P}
+
+\pause
+El alfabeto del sistema $P$, que denotaremos por $\mathfrak{a}^{P}$, está formado por la unión de los siguientes conjuntos de símbolos:
+\pause 
+\begin{enumerate}
+\pause \salto
+\item Las constantes lógicas $\{\lnot, \lor,\forall\}$, el resto se definen como abreviaturas.
+\pause \salto
+\item Los símbolos aritméticos $\{0,s\}$ con lectura normal.
+\pause \salto
+\item Los símbolos de puntuación $\{(,)\}$
+\pause \salto
+\item La familia de conjuntos numerables de variables de orden $n$, $\mathcal{V}ar=\mathcal{V}ar_1 \cup \mathcal{V}ar_2 \cup ... \cup \mathcal{V}ar_n$
+
+\end{enumerate}
+
+\end{frame}
+\begin{frame}\frametitle{Términos de $P$} \pause
+
+\pause Los términos (\emph{signos}, en el original) de $P$, $Term(P)$, se definen a partir de varios conjuntos de signos: \pause \salto
+
+\begin{enumerate}
+\item Los términos de tipo 1 son los elementos del menor conjunto, $Term_1(P)$, que podemos construir usando las siguientes reglas. \salto: \begin{itemize}
+\item $\mathcal{V}ar_1 \cup \{0\} \subseteq Term_1(P)$. Es decir, todas las variables de tipo 1 y el 0 son términos de tipo 1.
+\item Si $a \in Term_1(P) $, entonces $sa \in Term_1(P)$.
+
+Es decir: son términos de tipo $a,sa,ssa,sssa,...$ para $a \in \{\mathcal{V}ar \cup \{0\}\}$.
+
+\end{itemize} 
+\pause \salto
+\item Los términos de tipo $n$ son simplemente variables de tipo $n$.
+\end{enumerate} \saltop
+
+Así, definimos el conjunto de términos de $\mathcal{L}^{P}$, como $Term(P)=Term_1(P)  \cup \mathcal{V}ar$
+
+
+\end{frame}
+
+\begin{frame}\frametitle{Fórmula atómica}
+
+\textbf{DEF. Fórmula atómica.} Una \emph{fórmula atómica} (\emph{elemental} en el original) es una combinación de términos de la forma $a(b)$ donde $b$ es un término de tipo $n$ y $a$ es un término de tipo $n+1$. \salto
+Con $Atom(P)$ designamos el conjunto de todas las fórmulas atómicas que se pueden formar en $P$.
+\pause \salto
+\end{frame}
+\begin{frame}\frametitle{Fórmula bien formada}
+
+
+\textbf{DEF. Fórmula} El conjunto de fórmulas bien formadas de $P$, al que denotaremos por $\mathcal{L}^{P}$ es el menor conjunto que cumple : \pause \salto \begin{enumerate}
+\item $Atom(P) \subseteq \mathcal{L}^{P}$ \pause \salto
+\item Si $\varphi \in \mathcal{L}^{P}$, entonces $\lnot \varphi \in \mathcal{L}^{P}$ \pause \salto
+\item Si $\varphi, \psi \in \mathcal{L}^{P}$, entonces $\varphi \lor \psi \in \mathcal{L}^{P}$ \pause \salto
+\item Si $\varphi \in \mathcal{L}^{P}$ y $x \in \mathcal{V}ar$, entonces $\forall x \varphi(x) \in \mathcal{L}^{P}$ 
+\end{enumerate}
+\end{frame}
+
+\begin{frame}\frametitle{Signo relacional y función de sustitución}
+\textbf{DEF.} Variable libre y variable ligada. \saltop
+
+\textbf{DEF.} Un \textbf{signo relacional $n$-ario} es una fórmula con exactamente $n$ variables libres. Para $n=1$, lo denominamos \textbf{signo de clase}. \saltop
+
+\textbf{DEF.} Con $[x/t]$  (donde $x \in \mathcal{V}ar_n$ y $t \in Term(\mathcal{L}^{P})_n $, es decir $t$ y $x$ son un término y una variable del mismo tipo) denotamos la  función $[x/t]:\mathcal{L}^{P} \longrightarrow \mathcal{L}^{P}$ tal que $[x/t]\varphi$ es el resultado de sustituir cada aparición libre de $x$ en $\varphi$ por el término $t$. \saltop
+
+\textbf{DEF.} Decimos que $\varphi$ es la \textbf{elevación de tipo} de $\psi$ sii $\varphi$ se obtiene a partir de $\psi$ de la siguiente forma: si $n_1,n_2,...,n_k$ son los tipos de las variables que aparecen en $\psi$, entonces los tipos de las variables de $\varphi$ son $n_1+n,n_2+n,...,n_k+n$
+
+\end{frame}
+
+\begin{frame}\frametitle{Axiomas de \emph{P} I.}
+
+\textbf{I.- Axiomas aritméticos} \begin{enumerate}
+\item $\lnot (sx_1=0)$ (el cero no es el sucesor de ningún número natural). \saltop
+\item $sx_1=sy_1 \to x_1=y_1$ (si los sucesores de dos números cualesquiera son idénticos, entonces ambos números son idénticos entre sí). \saltop
+\item $x_2(0) \land \forall x_1(x_2(x_1) \to x_2(sx_1)) \to \forall x_1(x_2(x_1))$ (axioma de inducción) \saltop
+
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Axiomas de \emph{P} II.}
+
+\textbf{II.- Axiomas proposicionales}. Todas las instancias de sustitución de $\alpha$ y $\beta$ por cualesquiera fórmulas: \saltop
+\begin{enumerate}
+\item $\alpha \lor \alpha \to \alpha$   \saltop
+\item $\alpha \to \alpha \lor \beta$  \saltop
+\item $\alpha \lor \beta \to \beta \lor \alpha$  \saltop
+\item $ (\alpha \to \beta) \to (\delta \lor \alpha \to \delta \lor \beta) $  \saltop
+\end{enumerate}
+\end{frame}
+
+\begin{frame}\frametitle{Axiomas de $P$ III}
+
+\textbf{III.- Axiomas cuantificacionales}. Todas las instancias de sustitución de: $\alpha$ por una fórmula cualquiera; $v$ por una variable cualquiera; $\beta$ por una fórmula en la que no aparezca libre $v$ y $t$ por un término del mismo tipo de $v$ que no contenga ninguna variable que pase a estar ligada en un lugar de $\alpha$ donde $v$ estaba libre.  \saltop
+\begin{enumerate}
+
+\item $\forall v \alpha \to [v/t] \alpha$  \saltop
+\item $\forall v (\beta \lor \alpha) \to \beta \lor \forall v( \alpha)$  \saltop
+\end{enumerate}
+
+
+\end{frame}
+
+\begin{frame}\frametitle{Axiomas de $P$ IV}
+\textbf{IV.- Axioma de reductibilidad}
+\saltop
+ \begin{enumerate}
+\item $\exists u \forall v(u(v) \leftrightarrow \alpha)$. con $v$ de tipo $n$, $u$ de tipo $n+1$ y $\alpha$ sin ocurrencias libres de $u$.
+\end{enumerate}
+\saltop
+\textbf{V.- Axioma de extensionalidad para tipos}. Cada instancia por elevación de tipo  que resulta de:\saltop \begin{enumerate}
+\item $\forall x_1(x_2(x_1) \leftrightarrow y_2 (x_1)) \to x_2 =y_2$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Reglas de inferencia}
+
+\begin{itemize}
+\item Regla 1 : \qquad \infer{\psi}{\lnot \varphi \lor \psi, & \varphi}
+\saltop \salto
+
+\item Regla 2: \qquad \infer{\forall v (\varphi)}{\varphi} \qquad donde $v$ es una variable de cualquier tipo.
+
+\saltop
+\end{itemize}
+
+\textbf{DEF.} Decimos que una fórmula $\varphi$ es deducible en $P$ (es un teorema) syss existe una secuencia $\varphi_1, ..., \varphi_n$ tal que $\varphi=\varphi_n$ y para todo $\varphi_k$ de la secuencia, $\varphi_k$ es o un axioma, o se obtiene de fórmulas anteriores mediante la aplicación de una regla. Si $\varphi$  es deducible en $P$ notamos $\vdash \varphi$. \salto
+
+La clase de las fórmulas deducibles en $P$ es $Con(P)= \{\varphi \mid \vdash \varphi \}$.  La pregunta por la completud de $P$ puede reformularse entonces como: ¿es el caso que para toda $\varphi \in \mathcal{L}^{P} $ se tiene que $\varphi \in Con(P)$ o $\lnot \varphi \in Con(P)$?
+\end{frame}
+
+\subsection{Gödelización y recursión primitiva}
+\begin{frame}\frametitle{Gödelización}
+
+\begin{itemize}
+ \item Recordemos que uno de los objetivos de Gödel era ver si nuestras teorías aritméticas eran capaces de demostrar su propia consistencia. De ser así, lo primero que habría que hacer sería que el sistema $P$ (que no es otra cosa que una teoría formal) pueda hablar sobre sí mismo. Como el universo de interpretación pretendido de $P$ (aquello de lo que la teoría habla), son los números naturales, necesitamos \emph{codificar} las expresiones de nuestro lenguaje dentro de $\mathbb{N}$.
+ 
+
+ 
+\end{itemize}
+
+
+
+\end{frame}
+\begin{frame}
+
+
+ \frametitle{Gödelización}
+ \begin{itemize}
+ \item Signos primitivos
+ 
+  "$0$"... 1 \qquad
+ "$s$"...3 \qquad
+ "$\lnot$"...5 \qquad
+ "$\lor$"...7 \qquad
+ "$\forall$"...9 \qquad
+ "$($"...11 \qquad
+ "$)$"...13 \qquad
+ 
+ \saltop
+ \item  A cada variable de tipo $n$, asignamos un número $p^{n}$ donde $p$ es un primo $>13$. Es decir $nu(x_n)=p^{n}$
+ \saltop
+ \item A cada secuencia de signos primitivos $\alpha= s_1,s_2,...,s_k$, cuyos números de Gödel son $n_1,n_2,...,n_k$, le asociamos el número $nu(\alpha)=2^{n_1},3^{n_2},...,p^{n_k}$  (donde $p$ es el $k$-ésimo primo). 
+ \saltop
+ 
+ \item Como la factorización canónica de un número natural es única (según el Teorema fundamental de la aritmética) tenemos que la función $nu: \mathcal{L} \longrightarrow \mathbb{N}$ es inyectiva. Por ello, podemos pasar de un conjunto a otro "sin confundirnos". \saltop
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Meta-propiedades y propiedades numéricas}
+
+\begin{itemize}
+\item También queremos hablar, dentro de la aritmética, de relaciones y propiedades entre signos de nuestro lenguaje. Por ejemplo, expresar numéricamente meta-expresiones como $\Gamma \vdash \varphi$.
+
+\saltop
+\item  Dada una relación $n$-aria entre signos o secuencias de signos de $\mathcal{L}^{P}$, le asignamos la relación \emph{n}-aria $R'$ entre números naturales, en la que están los números $x_1,x_2,...,x_n$ si y sólo si hay signos primitivos o secuencias de signos primitivos $a_1,a_2,...,a_n$ tales que $x_i=nu(a_i)$ (para $i=1,2,...,n$) y $a_1,a_2,..,a_n$ están en la relación $R$.
+
+\saltop
+
+\item A las relaciones numéricas asignadas -según la definición anterior- a una propiedad meta-matemática conocida las denotaremos en castellano mediante el nombre de esa propiedad en letras mayúsculas. Por ejemplo, si $\varphi$ es deducible desde $\Gamma$, decimos que $nu(\varphi)$ es \emph{DEDUCIBLE} desde $nu(\Gamma)$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}\frametitle{Recursión primitiva I}
+\textbf{DEF. Función recursivamente definida a partir de otras dos.} Decimos que función numérica $f: \mathbb{N}^{n} \longrightarrow \mathbb{N}$ es una función recursivamente definida a partir de las funciones numéricas: $h:\mathbb{N}^{n-1} \longrightarrow \mathbb{N}$, $q:\mathbb{N}^{n+1} \longrightarrow \mathbb{N}$ si para cada $x_2,...,x_n,k$ vale lo siguiente: \saltop
+\begin{equation}
+f(0,x_2,...,x_n)=h(x_2,...,x_n) \end{equation}
+\saltop
+\begin{equation}
+f(k+1,x_2,...,x_n)=q(k,f(k,x_2,...,x_n),x_2,...,x_n)
+\end{equation}
+\end{frame}
+
+\begin{frame}\frametitle{Recursión primitiva II}
+\textbf{DEF. Función recursiva primitiva} Decimos que una función numérica $f$ es \emph{recursivamete primitiva} si hay una secuencia finita de funciones $f_1,f_2,...,f_n$ (con $f_n=f$) tal que cada $f_k$ de la secuencia cumple alguna de las condiciones: \begin{itemize} \saltop
+
+\item está recursivamente definida a partir de dos funciones precedentes \saltop
+\item resulta de alguna de las precedentes por sustitución \footnote{Sustituir uno o más valores argumentales de una función $f_k$ por funciones $f_i$ con $i \leq k$.} \saltop
+\item es la función sucesor ($s(x)=x+1$) \saltop
+\item es una constante \saltop
+\end{itemize} 
+\end{frame}
+
+\begin{frame}\frametitle{Recursión primitiva III}
+\textbf{DEF. Relación recursiva primitiva} Una relación n-aria entre números naturales $R^{n} \subseteq  \mathbb{N}^{n}$. \saltop
+se dice \emph{recursiva primitiva} syss hay una función recursiva primitiva tal que para todo $x_1,...,x_2 \in \mathbb{N}$ se tiene $$Rx_1,...,x_n \Leftrightarrow f(x_1,...,x_n)=0$$. Es decir, una función recursiva primitiva que resulta ser además función característica del conjunto $R$. \salto 
+
+\end{frame}
+
+\begin{frame}\frametitle{Recursión primitiva IV}
+Usando cuatro teoremas sobre recursión primitiva, se puede construir muchas funciones y relaciones numéricas que resultan recursivas primitvas cuya decodificación son propiedades meta-matemáticas bien conocidas. \saltop
+
+Las más usadas en la prueba de los teoremas. \begin{itemize}
+\item $Sb(x)^{v}_{y}$ \quad la SUSTITUCIÓN en la FÓRMULA $x$ de la vairable $v$ por $t$. \saltop
+\item $vGen(x)$ \qquad  la GENERALIZACIÓN de la FÓRMULA $x$ sobre la variable $v$ \saltop
+\item $Neg(x)$ \qquad la NEGACIÓN de la FÓRMULA $x$.
+
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Recursión primitiva V}
+\begin{itemize}
+
+
+
+\item $Bw (x)$ \qquad $x$ es una DEDUCCIÓN. \saltop
+\item $xB(y)$ \qquad $x$ es una DEDUCCIÓN para la FÓRMULA $y$. \saltop
+
+\end{itemize}
+
+
+Y la relación no recursiva primitiva $Bew(x) \leftrightarrow \exists y (y B x)$ que en meta-lenguaje equivale a $\vdash \varphi$, es decir, $x$ es DEDUCIBLE.
+
+\end{frame}
+ 
+\subsection{Los teoremas de incompletud}
+\begin{frame}\frametitle{Expresabilidad de las relaciones recursivas primivitivas en $P$}
+
+\textbf{TEOREMA 5 (Preliminar)}  \emph{Para cada relación recursiva primitiva $n$-aria ($R^{n} \subseteq \mathbb{N}^{n}$) existe un \emph{SIGNO RELACIONAL} $r$ (con las \emph{VARIABLES LIBRES} $u_1,u_2,...u_n$) tal que para $n$-tuplo de naturales ($x_1,..,x_n$) se tiene:} \salto \salto
+
+ \begin{equation}
+\Large{Rx_1,...,x_n \to Bew(Sb(r^{u_1,...,u_n}_{Z(x_1),...,Z(x_n)}))}
+\end{equation}
+\salto \salto
+\begin{equation}
+\Large{\lnot Rx_1,...,x_n \to Bew(Neg(Sb(r^{u_1,...,u_n}_{Z(x_1),...,Z(x_n)})))}
+\end{equation} \salto
+
+\end{frame}
+
+\begin{frame}\frametitle{$\omega$-consistencia I}
+
+\textbf{DEF (numérica) de $\omega $- consistencia.} Sea $K$ una clase cualquiera de \emph{FÓRMULAS} designamos mediante $Flg(K)$ el conjunto de inferencias a partir de $K$- el mínimo conjunto de \emph{FÓRMULAS} que contiene a todas las de $K$ y todos los $AXIOMAS$ y está cerrado bajo la relación de \emph{INFERENCIA INMEDIATA}. Decimos que $K$ es $\omega$-consistente si no hay ningún \emph{SIGNO DE CLASE} $a$, tal que:
+\Large{$$\forall n(Sb(a^{v}_{Z(n)}) \in Flg(K)) \land (Neg (v Gen a)) \in Flg(K)$$}
+
+\saltop
+ \end{frame}
+ 
+ \begin{frame}\frametitle{$\omega$-consistencia II}
+ 
+ 
+\textbf{DEF (meta-lógica) de $\omega$-consistencia}. Sea $K$ una clase cualquiera de fbfs, designamos mediante $Con(K)= \{ \varphi \mid K \vdash \varphi \}$. Decimos que $K$ es $\omega$-consistente si no hay ningún signo de clase $\psi(x)$ tal que para cada término $t$ se tiene:  \salto
+\Large{$$([t/x]\psi \in Con(\varphi)) \land(\lnot \forall x \psi(x) \in Con(\varphi)) $$}
+\salto
+es decir, si $Con(K)$ no contiene al mismo tiempo todas las instancias de $\psi(x)$ y $\lnot \forall x\psi(x)$. \saltop
+
+\textbf{Nótese.} que $\omega$-consistente($K$)$\Rightarrow$ consistente($K$) pero \saltop
+
+consistente($K$)$\nRightarrow$ $\omega$-consistente($K$)
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Primer teorema de incompletud}
+
+\Large{\textbf{TEOREMA VI} (Primero de incompletud). \emph{Para cada clase recursiva primitiva y $\omega$-consistente de \emph{FORMULAS} hay un \emph{SIGNO DE CLASE} $r$ tal que ni $v Gen (r)$ ni $Neg(v Gen (r))$ pertenecen a $Flg(K)$ - donde $v$ es la \emph{VARIABLE} libre de $r$.}}
+
+\saltop
+
+(Versión meta-lógica) Para cada clase $\Gamma$ de fórmulas que sea recursiva primitiva y $\omega$-consistente, hay una fórmula $\varphi$, en particular un signo de clase $\varphi(x)$, tal que $\Gamma \nvdash \forall x \varphi(x)$ y $\Gamma \nvdash \lnot \forall x \varphi (x)$. 
+\end{frame}
+
+\begin{frame}\frametitle{Análisis de la prueba de VI. y consecuencias inmediatas}
+
+La prueba del teorema VI es intuicionistamente aceptable. Además, se han utilizado solo dos propiedades del sistema $P$:
+
+\saltop
+\begin{enumerate}
+\item La clase de los axiomas y las reglas de inferencia son recursivamente definibles (a través de la gödelización).
+\saltop
+\item Cada relación recursiva primitiva es definible en $P$ (teorema V).
+\end{enumerate}
+
+\saltop
+
+Estas dos propiedades son cumplidas por muchas de las teorías claves en cuestiones fundacionales. Entre otras, $ZFC$,$NBG$ y cualquier ampliación de $PA$ que sea capaz de definir recursividad y las reglas de inferencia.
+
+\end{frame}
+
+\begin{frame}
+¿Y si añadimos axiomas que impidan la existencia de ese tipo de enunciados?  \saltop 
+
+\Large{\textbf{TEOREMA IX.} Toda extensión de $P \subseteq P'$ mediante una clase recursivamente definible de axiomas es capaz de generar sentencias \emph{indecidibles}$^{*}$, es decir, sentencias $\varphi$ tales que $P'\nvdash \varphi$ y $P' \nvdash \lnot \varphi$. (incompletud esencial).}
+\end{frame}
+
+\begin{frame} \frametitle{Teorema sobre las pruebas de consistencia}
+\Large{\textbf{TEOREMA XI.} Sea $K$ una clase recursiva primitiva y consistente cualquiera de \emph{FORMULAS}. Entonces ocurre que la \emph{SENTENCIA} que dice que $K$ es consistente no es \emph{K-DEDUCIBLE}. En especial, la consistencia de $P$ no es deducible en $P$, suponiendo que $P$ es consistente.}
+
+\end{frame}
+
+\section{Referencias} 
+
+\begin{frame}\frametitle<presentation>{Referencias}
+
+
+\begin{thebibliography}{10}
+
+\bibitem[Godel,1988]{Feferman}
+S.~Feferman, J. ~ Dawson, S.~ Kleene, G.H. ~ Moore  y R.M.~ Solovay.
+\newblock {\em Kurt Gödel. Collected works. Vol I.}
+\newblock  \emph{Oxford Universiti Press, 1988 }.
+
+\bibitem[Godel, 1931]{Devlin}
+K.~Gödel.
+\newblock {\em Sobre sentencias formalmente indecidibles de P.M. y sistemas afines (1931)}
+\newblock En \emph{Obras completas de K. Gödel} Alianza editorial (ed J. Mosterín), 2006 (orginal de 1931).
+
+\bibitem{Smullyan} 
+R.~Smullyan.
+\newblock {\em Godel's incompleteness theorems}.
+\newblock Oxford University Press, 1992.
+
+
+\end{thebibliography}
+\end{frame}
+
+
+\end{document}
